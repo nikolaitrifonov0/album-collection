@@ -7,32 +7,40 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
   }
 
   let token =  (async () => {
-    let response = await fetch(urls.token, {
-        method: 'POST',
-        headers: {
-            'Content-Type' : 'application/x-www-form-urlencoded',
-            'Authorization' : 'Basic ' + btoa(ClientId + ':' + ClientSecret)    
-        },
-        body: 'grant_type=client_credentials'
-    });
+    let response = await request(
+      urls.token, 
+      'POST',
+      {
+        'Content-Type' : 'application/x-www-form-urlencoded',
+        'Authorization' : 'Basic ' + btoa(ClientId + ':' + ClientSecret)    
+      },
+      'grant_type=client_credentials' 
+      );
 
-    let data = await response.json();
+    console.log(response);
 
-    return data.access_token;
+    return response.access_token;
   })();
 
   export async function albumSearch(keyword) {
-    let response = await fetch(urls.search(keyword), {
-      method: 'GET',
-      headers: {
+    let response = await request(
+      urls.search(keyword),
+      'GET',
+      {
         'Content-Type' : 'application/json',
             'Authorization' : 'Bearer ' + await token   
       }
-    });
+    );
 
-    let data = await response.json();
+    // let response = await fetch(urls.search(keyword), {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type' : 'application/json',
+    //         'Authorization' : 'Bearer ' + await token   
+    //   }
+    // });
 
-    let albums = await data.albums.items.map(album => {
+    let albums = await response.albums.items.map(album => {
       return {
         id: album.id,
         artists: album.artists.map(artist => artist.name).join(', '),
@@ -47,4 +55,23 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
   export async function getAlbum(id) {
     
   }
+
+  async function request(url, method, headers, body) {
+    let options = {
+      method,
+      headers
+    };
+
+    if (body) {
+      Object.assign(options, {
+          body
+      });      
+    }
+
+    let response = await fetch(url, options);
+
+    let data = await response.json();
+
+    return data;
+} 
 

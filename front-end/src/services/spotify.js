@@ -1,8 +1,13 @@
 const ClientId = 'd69ed0a205f94854a85acf36964a2d4f';
 const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
 
+  const urls = {
+    token : 'https://accounts.spotify.com/api/token',
+    search: (keyword) => `https://api.spotify.com/v1/search?q=${keyword}&type=album`
+  }
+
   let token =  (async () => {
-    let response = await fetch('https://accounts.spotify.com/api/token', {
+    let response = await fetch(urls.token, {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/x-www-form-urlencoded',
@@ -17,7 +22,7 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
   })();
 
   export async function albumSearch(keyword) {
-    let response = await fetch(`https://api.spotify.com/v1/search?q=${keyword}&type=album`, {
+    let response = await fetch(urls.search(keyword), {
       method: 'GET',
       headers: {
         'Content-Type' : 'application/json',

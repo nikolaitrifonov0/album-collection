@@ -1,0 +1,43 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(36, 36, 39);
+    color: rgb(118, 118, 136);
+    position: relative;
+  }
+  
+  .left {
+    display: flex;
+    margin-left: 30px;
+  }
+  
+  .logo {
+    font-size: 25px;
+  }
+  
+  .logo a {
+    text-decoration:none;
+    color: rgb(118, 118, 136);
+  }
+  
+  .buttons {
+    display: flex;
+    list-style: none;
+    align-items: center;
+  }
+  
+  .buttons li {
+    margin-right: 30px;
+  }
+  
+  .buttons a {
+    text-decoration:none;
+    font-weight: 600;
+    font-size: 20px;
+    color: rgb(118, 118, 136);
+  }
+  
+  .buttons a:hover {
+     color:rgb(186, 186, 221);
+  }

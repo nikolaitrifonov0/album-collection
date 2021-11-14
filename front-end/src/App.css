@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
+
+* {
+  font-family: Sora, serif;
+}
+
+html {
+  background-color: #2e2e41;
+  color: #767688;  
+}
+
+body {
+  margin: 0 auto;
+  text-align: center;
+}
+
+a {
+  text-decoration: underline;
+  color: #b2b2d8;
+}
+

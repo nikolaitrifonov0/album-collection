@@ -54,7 +54,22 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
       await headers()
     );
 
-    console.log(await response);
+    let album = {
+      id: response.id,
+      artists: response.artists.map(artist => artist.name).join(', '),
+      name: response.name,
+      image: response.images.filter(image => image.height == 300)[0].url,
+      tracks: response.tracks.items.map(track => (        
+          { name: track.name, 
+            id: track.id,
+            duration: track.duration_ms,
+            url: track.external_urls.spotify
+          }
+        )
+      ),
+    };
+
+    return album;
   }
 
   async function request(url, method, headers, body) {

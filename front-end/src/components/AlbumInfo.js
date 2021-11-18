@@ -3,10 +3,8 @@ import { getAlbum, albumSearch } from "../services/spotify";
 
 export default function AlbumInfo({ match }) {
     const id = match.params.id;
-
-    useEffect(async () => {
-      await getAlbum(id);
-    }, []);
+    
+    console.log(getAlbum(id));    
 
     return (
       <section>

@@ -2,14 +2,17 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import Navigation from './components/Navigation';
 import FrontPage from './components/FrontPage';
+import AlbumInfo from './components/AlbumInfo';
 
 export default function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
+    <BrowserRouter>
+      <div className="App">
         <Navigation/>
-        <FrontPage/>
-      </BrowserRouter>
-    </div>
+        <Route exact={true} path='/' component= {FrontPage}/>
+
+        <Route exact={true} path='/details/:id' component = {AlbumInfo}/>
+     </div>
+    </BrowserRouter>
   );
 }

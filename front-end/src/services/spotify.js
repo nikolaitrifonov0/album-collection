@@ -3,7 +3,8 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
 
   const urls = {
     token : 'https://accounts.spotify.com/api/token',
-    search: (keyword) => `https://api.spotify.com/v1/search?q=${keyword}&type=album`
+    search: (keyword) => `https://api.spotify.com/v1/search?q=${keyword}&type=album`,
+    getAlbum: (id) => `https://api.spotify.com/v1/albums/${id}`,
   }
 
   let token =  (async () => {
@@ -17,28 +18,22 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
       'grant_type=client_credentials' 
       );
 
-    console.log(response);
-
     return response.access_token;
   })();
+
+  const headers = async () => {
+      return {
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer ' + await token
+    }
+  };
 
   export async function albumSearch(keyword) {
     let response = await request(
       urls.search(keyword),
       'GET',
-      {
-        'Content-Type' : 'application/json',
-            'Authorization' : 'Bearer ' + await token   
-      }
+     await headers()
     );
-
-    // let response = await fetch(urls.search(keyword), {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type' : 'application/json',
-    //         'Authorization' : 'Bearer ' + await token   
-    //   }
-    // });
 
     let albums = await response.albums.items.map(album => {
       return {
@@ -53,7 +48,13 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
   }
 
   export async function getAlbum(id) {
-    
+    let response = await request(
+      urls.getAlbum(id),
+      'GET',
+      await headers()
+    );
+
+    console.log(await response);
   }
 
   async function request(url, method, headers, body) {
@@ -71,7 +72,7 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
     let response = await fetch(url, options);
 
     let data = await response.json();
-
+    
     return data;
 } 
 

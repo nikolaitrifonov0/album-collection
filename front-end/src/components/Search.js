@@ -10,7 +10,6 @@ export default function Search() {
 
         if (input.length >= 3) {
             setResults(await albumSearch(input));
-            console.log(results);
         }
         else {
             setResults([]);

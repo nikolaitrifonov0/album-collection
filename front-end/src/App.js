@@ -11,7 +11,7 @@ export default function App() {
         <Navigation/>
         <Route exact={true} path='/' component= {FrontPage}/>
 
-        <Route exact={true} path='/details/:id' component = {AlbumInfo}/>
+        <Route path='/details/:id' component = {AlbumInfo}/>
      </div>
     </BrowserRouter>
   );

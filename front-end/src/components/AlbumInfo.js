@@ -1,15 +1,40 @@
-import { useEffect } from "react";
-import { getAlbum, albumSearch } from "../services/spotify";
+import { useEffect, useState } from "react";
+import { getAlbum } from "../services/spotify";
 
 export default function AlbumInfo({ match }) {
-    const id = match.params.id;
+    const [album, setAlbum] = useState({});
     
-    console.log(getAlbum(id));    
+    useEffect(async () => {
+      setAlbum(await getAlbum(match.params.id));
+      console.log(await album);
+    }, [match.params.id]);
 
     return (
       <section>
-          <h1>Keep track of your favourite albums and your thoughts about them.</h1>
-          <h2>Get started by <a>Creating your account</a>, or <a>Logging in</a>.</h2>
-      </section>
+        <article>
+          <img src={album.image}/>
+          <article>
+            <h1>{album.name}</h1>
+            <h2>{album.artists}</h2>
+          </article>
+        </article>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+          {album.tracks?.map(track => 
+              (
+                <tr key={track.id}>
+                  <td>{track.name}</td>
+                  <td>{track.duration}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </section>      
     );
   }

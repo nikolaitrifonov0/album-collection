@@ -4,7 +4,7 @@ import { useState } from 'react';
 import SearchResult from './SearchResult';
 
 export default function Search() {
-    let [results, setResults] = useState([]);    
+    const [results, setResults] = useState([]);    
     async function onSearchBarInput(e) {
         let input = e.target.value;
 

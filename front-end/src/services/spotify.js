@@ -58,6 +58,7 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
       id: response.id,
       artists: response.artists.map(artist => artist.name).join(', '),
       name: response.name,
+      releaseDate: response.release_date,
       image: response.images.filter(image => image.height == 300)[0].url,
       tracks: response.tracks.items.map(track => (        
           { name: track.name, 
@@ -68,7 +69,7 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
         )
       ),
     };
-
+    
     return album;
   }
 

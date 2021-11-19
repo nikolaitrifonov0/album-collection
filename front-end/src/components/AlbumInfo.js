@@ -1,20 +1,31 @@
 import { useEffect, useState } from "react";
 import { getAlbum } from "../services/spotify";
+import styles from './AlbumInfo.module.css'
+
+function calculateDuration(duration) {
+  const milisecondsInMinute = 60000;
+  const milisecondsInSecond = 1000;
+
+  let minutes = Math.floor(duration / milisecondsInMinute);
+  let seconds = Math.floor((duration - minutes * milisecondsInMinute) / milisecondsInSecond);
+
+  return `${minutes}:${seconds}`;
+}
 
 export default function AlbumInfo({ match }) {
     const [album, setAlbum] = useState({});
     
     useEffect(async () => {
       setAlbum(await getAlbum(match.params.id));
-      console.log(await album);
     }, [match.params.id]);
 
     return (
-      <section>
-        <article>
+      <section className={styles.albumSection}>
+        <article className={styles.albumInfo}>
           <img src={album.image}/>
-          <article>
+          <article className={styles.data}>
             <h1>{album.name}</h1>
+            <h1>({album.releaseDate?.substring(0, 4)})</h1>
             <h2>{album.artists}</h2>
           </article>
         </article>
@@ -30,7 +41,7 @@ export default function AlbumInfo({ match }) {
               (
                 <tr key={track.id}>
                   <td>{track.name}</td>
-                  <td>{track.duration}</td>
+                  <td>{calculateDuration(track.duration)}</td>
                 </tr>
               ))}
           </tbody>

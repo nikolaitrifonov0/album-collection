@@ -1,16 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAlbum } from "../services/spotify";
-import styles from './AlbumInfo.module.css'
-
-function calculateDuration(duration) {
-  const milisecondsInMinute = 60000;
-  const milisecondsInSecond = 1000;
-
-  let minutes = Math.floor(duration / milisecondsInMinute);
-  let seconds = Math.floor((duration - minutes * milisecondsInMinute) / milisecondsInSecond);
-
-  return `${minutes}:${seconds}`;
-}
+import styles from './AlbumInfo.module.css';
+import Tracklist from './Tracklist';
 
 export default function AlbumInfo({ match }) {
     const [album, setAlbum] = useState({});
@@ -29,23 +20,8 @@ export default function AlbumInfo({ match }) {
             <h2>{album.artists}</h2>
           </article>
         </article>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Duration</th>
-            </tr>
-          </thead>
-          <tbody>
-          {album.tracks?.map(track => 
-              (
-                <tr key={track.id}>
-                  <td>{track.name}</td>
-                  <td>{calculateDuration(track.duration)}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        
+        <Tracklist tracks={album.tracks}/>
       </section>      
     );
   }

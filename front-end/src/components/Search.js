@@ -4,7 +4,12 @@ import { useState } from 'react';
 import SearchResult from './SearchResult';
 
 export default function Search() {
-    const [results, setResults] = useState([]);    
+    const [results, setResults] = useState([]);  
+    
+    function hideResults() {
+        setResults([]);
+    }
+
     async function onSearchBarInput(e) {
         let input = e.target.value;
 
@@ -18,7 +23,7 @@ export default function Search() {
 
     return (
         <article className={styles.search}>
-            <input type="text" className={styles.searchField} onInput={onSearchBarInput}/>
+            <input type="text" className={styles.searchField} onInput={onSearchBarInput} onBlur={hideResults} />
             <section className={styles.searchResults} style={results.length > 0 ? {display: 'block'} : {display: 'none'}}>
                 {results.map(result => <SearchResult key={result.id} id={result.id} name={result.name} artists={result.artists} image={result.image}/>)}
             </section>      

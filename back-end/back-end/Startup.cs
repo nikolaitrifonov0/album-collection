@@ -3,6 +3,7 @@ using back_end.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,9 +26,17 @@ namespace back_end
                 .AddDbContext<AlbumCollectionContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")))
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
-
+                .AddDefaultIdentity<IdentityUser>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireDigit = false;
+                })
+                .AddEntityFrameworkStores<AlbumCollectionContext>();
+            //.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //.AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
+            services.AddCors();
             services.AddControllers();
         }
         
@@ -44,6 +53,7 @@ namespace back_end
             .UseRouting()
             .UseAuthentication()
             .UseAuthorization()
+            .UseCors(builder => builder.AllowAnyOrigin())
             .UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

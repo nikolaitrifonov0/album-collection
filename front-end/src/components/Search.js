@@ -23,7 +23,7 @@ export default function Search() {
 
     return (
         <article className={styles.search}>
-            <input type="text" className={styles.searchField} onInput={onSearchBarInput} onBlur={hideResults} />
+            <input type="text" className={styles.searchField} onInput={onSearchBarInput}  />
             <section className={styles.searchResults} style={results.length > 0 ? {display: 'block'} : {display: 'none'}}>
                 {results.map(result => <SearchResult key={result.id} id={result.id} name={result.name} artists={result.artists} image={result.image}/>)}
             </section>      

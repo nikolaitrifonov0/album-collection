@@ -36,7 +36,12 @@ namespace back_end
                 .AddEntityFrameworkStores<AlbumCollectionContext>();
             //.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //.AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
-            services.AddCors();
+            services.AddCors(options => options.AddPolicy("EveryRequest", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
             services.AddControllers();
         }
         
@@ -50,10 +55,10 @@ namespace back_end
             }
 
             app.UseHttpsRedirection()
+            .UseCors("EveryRequest")
             .UseRouting()
             .UseAuthentication()
             .UseAuthorization()
-            .UseCors(builder => builder.AllowAnyOrigin())
             .UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

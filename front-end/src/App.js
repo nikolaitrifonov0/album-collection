@@ -6,6 +6,7 @@ import Navigation from './components/Navigation';
 import FrontPage from './components/FrontPage';
 import AlbumInfo from './components/AlbumInfo';
 import Register from './components/Register';
+import ReviewAlbum from './components/ReviewAlbum';
 
 export default function App() {
   let [isAuthenticated, setAuth] = useState(false);
@@ -23,6 +24,8 @@ export default function App() {
           <Route exact={true} path='/' component={FrontPage}/>
 
           <Route path='/details/:id' component={AlbumInfo}/>
+
+          <Route path='/review/:id' component={ReviewAlbum}/>
 
           <Route path='/register' render={() => <Register authenticate={authenticate}/>}/>
         </AuthenticationContext.Provider>

@@ -5,10 +5,6 @@ import SearchResult from './SearchResult';
 
 export default function Search() {
     const [results, setResults] = useState([]);  
-    
-    function hideResults() {
-        setResults([]);
-    }
 
     async function onSearchBarInput(e) {
         let input = e.target.value;

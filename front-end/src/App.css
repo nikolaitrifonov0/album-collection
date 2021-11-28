@@ -19,3 +19,11 @@ a {
   color: #b2b2d8;
 }
 
+.button {
+  font-size: 15px;
+  border: none;
+  background-color: black;
+  color: #b2b2d8;
+  padding: 15px 15px;
+  margin-top: 20px;
+}

@@ -1,13 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import AuthenticationContext from "../contexts/AuthenticationContext";
 import { getAlbum } from "../services/spotify";
 import styles from './AlbumInfo.module.css';
 import Tracklist from './Tracklist';
 
 export default function AlbumInfo({ match }) {
     const [album, setAlbum] = useState({});
+    const isAuthenticated = useContext(AuthenticationContext);
     
-    useEffect(async () => {
-      setAlbum(await getAlbum(match.params.id));
+    useEffect(() => {
+      async function getData() {
+        setAlbum(await getAlbum(match.params.id));
+      }
+      
+      getData();
     }, [match.params.id]);
 
     return (
@@ -22,6 +29,12 @@ export default function AlbumInfo({ match }) {
         </article>
         
         <Tracklist tracks={album.tracks}/>
+
+        {
+          isAuthenticated
+          ? <Link to={`/review/${match.params.id}`}><input type='button' value='AddReview' className='button' /></Link>
+          : null
+        }
       </section>      
     );
   }

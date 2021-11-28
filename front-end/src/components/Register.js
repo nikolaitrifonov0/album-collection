@@ -1,24 +1,26 @@
-import styles from './Register.module.css'
+import styles from './Register.module.css';
+import request from '../services/request';
 
 export default function Register({ history }) {
+    const registerUrl = 'https://localhost:5001/authentication/register';
+    const registerHeader = { "content-type": "application/json" };
+
     function registerSubmitHandler(e) {
         e.preventDefault();
 
         let formData = new FormData(e.currentTarget);
 
-        fetch('https://localhost:5001/authentication/register', {
-            method:'post',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: formData.get('username'),
-                password: formData.get('password')
-            })        
+        request(registerUrl, 'post', 
+        registerHeader,
+        JSON.stringify({
+            'username': formData.get('username'),
+            'password': formData.get('password')            
         })
+        )
         .then(() => {
             history.push('/');
-        });
+        })
+        .catch(() => { history.push('/'); });
     }
 
     return (

@@ -1,3 +1,5 @@
+import request from './request.js';
+
 const ClientId = 'd69ed0a205f94854a85acf36964a2d4f';
 const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
 
@@ -73,22 +75,5 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
     return album;
   }
 
-  async function request(url, method, headers, body) {
-    let options = {
-      method,
-      headers
-    };
-
-    if (body) {
-      Object.assign(options, {
-          body
-      });      
-    }
-
-    let response = await fetch(url, options);
-
-    let data = await response.json();
-    
-    return data;
-} 
+  
 

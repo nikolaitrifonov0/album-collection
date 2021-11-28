@@ -1,4 +1,6 @@
 import { BrowserRouter, Route } from 'react-router-dom';
+import { useState } from 'react';
+import AuthenticationContext from './contexts/AuthenticationContext';
 import './App.css';
 import Navigation from './components/Navigation';
 import FrontPage from './components/FrontPage';
@@ -6,15 +8,24 @@ import AlbumInfo from './components/AlbumInfo';
 import Register from './components/Register';
 
 export default function App() {
+  let [isAuthenticated, setAuth] = useState(false);
+
+  function authenticate() {
+    setAuth(true);
+  }
+
   return (
     <BrowserRouter>
       <div className="App">
-        <Navigation/>
-        <Route exact={true} path='/' component={FrontPage}/>
+        <AuthenticationContext.Provider value={isAuthenticated}>
+          <Navigation/>
 
-        <Route path='/details/:id' component={AlbumInfo}/>
+          <Route exact={true} path='/' component={FrontPage}/>
 
-        <Route path='/register' component={Register}/>
+          <Route path='/details/:id' component={AlbumInfo}/>
+
+          <Route path='/register' render={() => <Register authenticate={authenticate}/>}/>
+        </AuthenticationContext.Provider>
      </div>
     </BrowserRouter>
   );

@@ -1,7 +1,9 @@
+import { useHistory } from 'react-router';
 import styles from './Register.module.css';
 import request from '../services/request';
 
-export default function Register({ history }) {
+export default function Register({ authenticate }) {
+    const history = useHistory();
     const registerUrl = 'https://localhost:5001/authentication/register';
     const registerHeader = { "content-type": "application/json" };
 
@@ -19,8 +21,12 @@ export default function Register({ history }) {
         )
         .then(() => {
             history.push('/');
+            authenticate();
         })
-        .catch(() => { history.push('/'); });
+        .catch(() => { 
+            history.push('/'); 
+            authenticate();
+        });
     }
 
     return (

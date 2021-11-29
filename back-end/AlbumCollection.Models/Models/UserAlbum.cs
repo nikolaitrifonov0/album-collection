@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AlbumCollection.Data.Models
@@ -16,5 +17,6 @@ namespace AlbumCollection.Data.Models
         public string Comment { get; set; }
         [MaxLength(maxRating)]
         public int? Rating { get; set; }
+        public DateTime AddedOnDate { get; set; }
     }
 }

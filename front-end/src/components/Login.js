@@ -22,7 +22,7 @@ export default function Login({ authenticate }) {
         .then((res) => {
             if (res.id) {
                 history.push('/');
-                authenticate();
+                authenticate(res.id);
             }            
         });
     }

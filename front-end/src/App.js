@@ -10,16 +10,16 @@ import ReviewAlbum from './components/ReviewAlbum';
 import Login from './components/Login';
 
 export default function App() {
-  let [isAuthenticated, setAuth] = useState(false);
+  let [userId, setUserId] = useState(null);
 
-  function authenticate() {
-    setAuth(true);
+  function authenticate(id) {
+    setUserId(id);
   }
 
   return (
     <BrowserRouter>
       <div className="App">
-        <AuthenticationContext.Provider value={isAuthenticated}>
+        <AuthenticationContext.Provider value={userId}>
           <Navigation/>
 
           <Route exact={true} path='/' component={FrontPage}/>

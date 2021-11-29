@@ -7,7 +7,7 @@ import Tracklist from './Tracklist';
 
 export default function AlbumInfo({ match }) {
     const [album, setAlbum] = useState({});
-    const isAuthenticated = useContext(AuthenticationContext);
+    const userId = useContext(AuthenticationContext);
     
     useEffect(() => {
       async function getData() {
@@ -31,7 +31,7 @@ export default function AlbumInfo({ match }) {
         <Tracklist tracks={album.tracks}/>
 
         {
-          isAuthenticated
+          userId
           ? <Link to={`/review/${match.params.id}`}><input type='button' value='AddReview' className='button' /></Link>
           : null
         }

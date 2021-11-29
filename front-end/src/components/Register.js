@@ -19,9 +19,9 @@ export default function Register({ authenticate }) {
             password: formData.get('password')            
         })
         )
-        .then(() => {
+        .then((res) => {
             history.push('/');
-            authenticate();
+            authenticate(res.id);
         });
     }
 

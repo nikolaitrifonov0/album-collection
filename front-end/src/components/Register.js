@@ -15,16 +15,12 @@ export default function Register({ authenticate }) {
         request(registerUrl, 'post', 
         registerHeader,
         JSON.stringify({
-            'username': formData.get('username'),
-            'password': formData.get('password')            
+            username: formData.get('username'),
+            password: formData.get('password')            
         })
         )
         .then(() => {
             history.push('/');
-            authenticate();
-        })
-        .catch(() => { 
-            history.push('/'); 
             authenticate();
         });
     }

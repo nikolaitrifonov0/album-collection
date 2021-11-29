@@ -6,7 +6,7 @@ export default async function request(url, method, headers, body) {
 
     if (body) {
       Object.assign(options, {
-          body
+          body: body
       });      
     }
 

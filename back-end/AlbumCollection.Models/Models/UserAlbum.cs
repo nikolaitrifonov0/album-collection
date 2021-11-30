@@ -8,6 +8,7 @@ namespace AlbumCollection.Data.Models
     {
         private const int maxRating = 10;
 
+        public int Id { get; set; }
         [Required]
         public string AlbumId { get; set; }
 

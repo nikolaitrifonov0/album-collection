@@ -7,15 +7,9 @@ namespace AlbumCollection.Data
 {
     public class AlbumCollectionContext : IdentityDbContext
     {
-        public AlbumCollectionContext()
-        {
+        public AlbumCollectionContext() {}
 
-        }
-
-        public AlbumCollectionContext(DbContextOptions<AlbumCollectionContext> options) : base(options)
-        {
-
-        }
+        public AlbumCollectionContext(DbContextOptions<AlbumCollectionContext> options) : base(options) {}
         public DbSet<UserAlbum> UserAlbums { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,8 +27,6 @@ namespace AlbumCollection.Data
         {
             modelBuilder.Entity<UserAlbum>()
                 .HasOne<IdentityUser>(ua => ua.User);
-            modelBuilder.Entity<UserAlbum>()
-               .HasKey(ua => new { ua.UserId, ua.AlbumId });
 
             base.OnModelCreating(modelBuilder);
         }

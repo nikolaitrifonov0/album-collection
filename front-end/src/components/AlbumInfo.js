@@ -5,7 +5,7 @@ import { getAlbum } from "../services/spotify";
 import styles from './AlbumInfo.module.css';
 import Tracklist from './Tracklist';
 
-export default function AlbumInfo({ match }) {
+export default function AlbumInfo( { match } ) {
     const [album, setAlbum] = useState({});
     const userId = useContext(AuthenticationContext);
     

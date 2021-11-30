@@ -33,7 +33,7 @@ namespace back_end.Controllers
             data.UserAlbums.Add(toAdd);
             data.SaveChanges();
 
-            return Ok();
+            return Ok(toAdd);
         }
     }
 }

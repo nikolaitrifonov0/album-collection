@@ -1,8 +1,10 @@
+import styles from './ReviewAlbum.module.css'
+
 export default function ReviewAlbum() {
 
     return (
-     <form>
-         <label htmlFor='rating'>Your Rating:</label>         
+     <form className={styles.reviewForm}>
+         <label className={styles.label} htmlFor='rating'>Your Rating:</label>         
          <select name='rating' id='rating'>
             <option value='1'>1</option>
             <option value='2'>2</option>
@@ -15,9 +17,9 @@ export default function ReviewAlbum() {
             <option value='9'>9</option>
             <option value='10'>10</option>
         </select>
-        <label htmlFor='review'>Your Review:</label>
-        <input type='textarea' id='review' name='review' />
-         <input type='submit' value='Add Review'/>         
+        <label className={styles.label} htmlFor='review'>Your Review:</label>
+        <textarea id='review' name='review' rows='5' />
+        <input type='submit' value='Add Review' className='button' />         
      </form>
     );
   }

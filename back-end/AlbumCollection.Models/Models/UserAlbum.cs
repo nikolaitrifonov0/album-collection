@@ -10,7 +10,7 @@ namespace AlbumCollection.Data.Models
 
         [Required]
         public string AlbumId { get; set; }
-        public Album Album { get; set; }
+
         [Required]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }

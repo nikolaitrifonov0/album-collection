@@ -16,8 +16,6 @@ namespace AlbumCollection.Data
         {
 
         }
-
-        public DbSet<Album> Albums { get; set; }
         public DbSet<UserAlbum> UserAlbums { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

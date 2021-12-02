@@ -1,20 +1,24 @@
 import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import Comments from "./Comments";
 import AuthenticationContext from "../contexts/AuthenticationContext";
+import { getReviews } from "../services/database";
 import { getAlbum } from "../services/spotify";
 import styles from './AlbumInfo.module.css';
 import Tracklist from './Tracklist';
 
 export default function AlbumInfo( { match } ) {
     const [album, setAlbum] = useState({});
+    const [reviews, setReviews] = useState([]);
     const userId = useContext(AuthenticationContext);
     
     useEffect(() => {
       async function getData() {
         setAlbum(await getAlbum(match.params.id));
+        setReviews(await getReviews(match.params.id));
       }
       
-      getData();
+      getData();      
     }, [match.params.id]);
 
     return (
@@ -32,9 +36,11 @@ export default function AlbumInfo( { match } ) {
 
         {
           userId
-          ? <Link to={`/review/${match.params.id}`}><input type='button' value='AddReview' className='button' /></Link>
+          ? <Link to={`/review/${match.params.id}`}><input type='button' value='Add Review' className='button' /></Link>
           : null
         }
+
+        <Comments reviews={reviews}/>
       </section>      
     );
   }

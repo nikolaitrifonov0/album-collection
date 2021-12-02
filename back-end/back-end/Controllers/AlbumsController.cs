@@ -1,8 +1,11 @@
 ﻿using AlbumCollection.Data;
 using AlbumCollection.Data.Models;
 using back_end.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace back_end.Controllers
 {
@@ -11,10 +14,12 @@ namespace back_end.Controllers
     public class AlbumsController : ControllerBase
     {
         private readonly AlbumCollectionContext data;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public AlbumsController(AlbumCollectionContext data)
+        public AlbumsController(AlbumCollectionContext data, UserManager<IdentityUser> userManager)
         {
             this.data = data;
+            this.userManager = userManager;
         }
 
         [HttpPost]
@@ -34,6 +39,22 @@ namespace back_end.Controllers
             data.SaveChanges();
 
             return Ok(toAdd);
+        }
+
+        [Route("reviews/{id}")]
+        public IActionResult Reviews(string id)
+        {
+            var result = data.UserAlbums.Where(ua => ua.AlbumId == id)
+            .Select(ua => new ReviewModel
+            {
+                AlbumId = id,
+                Comment = ua.Comment,
+                Rating = ua.Rating,
+                Username = ua.User.UserName
+            })
+            .ToList();
+
+            return Ok(result);
         }
     }
 }

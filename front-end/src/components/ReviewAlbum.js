@@ -1,31 +1,20 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router';
 import AuthenticationContext from '../contexts/AuthenticationContext';
-import request from '../services/request';
+import { reviewAlbum } from '../services/database';
 import styles from './ReviewAlbum.module.css'
 
 export default function ReviewAlbum( {match} ) {
     const history = useHistory();
     const userId = useContext(AuthenticationContext);
 
-    const headers = { "content-type": "application/json" };
-    const reviewUrl = 'https://localhost:5001/albums/review';
-
     function reviewAlbumHandler(e) {
         e.preventDefault();
 
         if (userId) {
             let formData = new FormData(e.currentTarget);
-
-            request(reviewUrl, 'post', 
-            headers,
-            JSON.stringify({
-                'albumId' : match.params.id,
-                'userId': userId,
-                'rating': formData.get('rating'),
-                'comment': formData.get('comment')            
-            })
-            )
+           
+            reviewAlbum(match.params.id, userId, formData.get('comment'),formData.get('rating'))
             .then(() => {            
                 history.push('/');                                 
             });

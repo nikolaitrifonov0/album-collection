@@ -57,5 +57,14 @@ namespace back_end.Controllers
 
             return Ok(result);
         }
+
+        [Route("collection/{id}")]
+        public IActionResult Collection(string id)
+        {
+            var result = data.UserAlbums.Where(ua => ua.UserId == id)
+                .Select(ua => ua.AlbumId).Distinct().ToList();
+
+            return Ok(result);
+        }
     }
 }

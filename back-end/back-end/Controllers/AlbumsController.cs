@@ -47,6 +47,7 @@ namespace back_end.Controllers
             var result = data.UserAlbums.Where(ua => ua.AlbumId == id)
             .Select(ua => new ReviewModel
             {
+                Id = ua.Id,
                 AlbumId = id,
                 Comment = ua.Comment,
                 Rating = ua.Rating,

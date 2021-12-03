@@ -23,6 +23,10 @@ textarea {
   resize: none;
 }
 
+ul {
+  list-style: none;
+}
+
 .button {
   font-size: 15px;
   border: none;

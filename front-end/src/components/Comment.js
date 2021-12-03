@@ -1,11 +1,13 @@
+import styles from './Comment.module.css'
+
 export default function Comment({ review }) {
     return (
-        <li>
-           <article>
+        <li className={styles.review}>
+        <article className={styles.header}>
            <h3>{review.username}</h3>
             <h3>Rating: {review.rating}</h3>
            </article>   
-           <p>{review.comment}</p>        
+           <p className={styles.comment}>{review.comment}</p>        
         </li>
     );
 }

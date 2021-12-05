@@ -4,6 +4,7 @@ import { useEffect, useState } from "react/cjs/react.development";
 import AuthenticationContext from "../contexts/AuthenticationContext";
 import { getCollection } from "../services/database";
 import { getImage } from "../services/spotify";
+import styles from './Collection.module.css';
 
 export default function Collection() {
     const userId = useContext(AuthenticationContext);
@@ -28,9 +29,9 @@ export default function Collection() {
     }, []);
 
     return (
-        <ul>
+        <ul className={ styles.albums }>
             {
-                albums?.map(a => <li key={a.url}><Link to={a.url}><img src={a.img}/></Link></li>)
+                albums?.map(a => <li key={a.url} className={styles.album}><Link to={a.url}><img src={a.img}/></Link></li>)
             }
         </ul>
     );

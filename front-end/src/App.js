@@ -8,6 +8,7 @@ import AlbumInfo from './components/AlbumInfo';
 import Register from './components/Register';
 import ReviewAlbum from './components/ReviewAlbum';
 import Login from './components/Login';
+import Collection from './components/Collection';
 
 export default function App() {
   let [userId, setUserId] = useState(null);
@@ -22,7 +23,11 @@ export default function App() {
         <AuthenticationContext.Provider value={userId}>
           <Navigation/>
 
-          <Route exact={true} path='/' component={FrontPage}/>
+          {
+            userId
+            ? <Route exact={true} path='/' component={Collection}/>
+            : <Route exact={true} path='/' component={FrontPage}/>
+          }
 
           <Route path='/details/:id' component={AlbumInfo}/>
 

@@ -4,6 +4,7 @@ const headers = { "content-type": "application/json" };
 
 const reviewUrl = 'https://localhost:5001/albums/review';
 const albumReviewsUrl = 'https://localhost:5001/albums/reviews/';
+const collectionUrl = 'https://localhost:5001/albums/collection/';
 
 export function reviewAlbum(albumId, userId, comment, rating) {
     return request(reviewUrl, 'post', 
@@ -19,4 +20,8 @@ export function reviewAlbum(albumId, userId, comment, rating) {
 
 export function getReviews(albumId) {
     return request(albumReviewsUrl + albumId);
+}
+
+export function getCollection(userId) {
+    return request(collectionUrl + userId);
 }

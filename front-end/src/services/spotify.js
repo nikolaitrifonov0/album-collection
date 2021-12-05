@@ -75,5 +75,17 @@ const ClientSecret = '65efd01b4807420281d1807aa8e874ca';
     return album;
   }
 
+  export async function getImage(id) {
+    let response = await request(
+      urls.getAlbum(id),
+      'GET',
+      await headers()
+    );
+
+    let image = response.images.filter(image => image.height == 300)[0].url;
+    
+    return image;
+  }
+
   
 

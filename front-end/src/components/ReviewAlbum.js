@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useHistory } from 'react-router';
 import AuthenticationContext from '../contexts/AuthenticationContext';
 import { reviewAlbum } from '../services/database';
-import styles from './ReviewAlbum.module.css'
+import styles from './ReviewAlbum.module.css';
 
 export default function ReviewAlbum( {match} ) {
     const history = useHistory();

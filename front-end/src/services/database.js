@@ -3,7 +3,7 @@ import request from "./request";
 const headers = { "content-type": "application/json" };
 
 const reviewUrl = 'https://localhost:5001/albums/review';
-const albumReviewsUrl = 'https://localhost:5001/albums/reviews/';
+const albumReviewsUrl = 'https://localhost:5001/albums/getall/';
 const collectionUrl = 'https://localhost:5001/albums/collection/';
 
 export function reviewAlbum(albumId, userId, comment, rating) {

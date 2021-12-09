@@ -40,8 +40,8 @@ namespace back_end.Controllers
             return Ok(toAdd);
         }
 
-        [Route("reviews/{id}")]
-        public IActionResult Reviews(string id)
+        [Route("getall/{id}")]
+        public IActionResult GetAll(string id)
         {
             var result = data.UserAlbums.Where(ua => ua.AlbumId == id)
             .Select(ua => new ReviewModel
@@ -54,6 +54,24 @@ namespace back_end.Controllers
                 Username = ua.User.UserName
             })
             .ToList();
+
+            return Ok(result);
+        }
+
+        [Route("getone/{id}")]
+        public IActionResult GetOne(int id)
+        {
+            var result = data.UserAlbums.Where(ua => ua.Id == id)
+            .Select(ua => new ReviewModel
+            {
+                Id = ua.Id,
+                AlbumId = ua.AlbumId,
+                Comment = ua.Comment,
+                Rating = ua.Rating,
+                UserId = ua.UserId,
+                Username = ua.User.UserName
+            })
+            .First();
 
             return Ok(result);
         }

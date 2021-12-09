@@ -90,6 +90,18 @@ namespace back_end.Controllers
             return Ok(result);
         }
 
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public IActionResult DeleteReview(int id)
+        {
+            var result = data.UserAlbums.Where(ua => ua.Id == id).First();
+            data.UserAlbums.Remove(result);
+
+            data.SaveChanges();
+
+            return Ok(result);
+        }
+
         [Route("collection/{id}")]
         public IActionResult Collection(string id)
         {

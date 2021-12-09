@@ -4,6 +4,7 @@ const headers = { "content-type": "application/json" };
 
 const reviewUrl = 'https://localhost:5001/albums/review';
 const editReviewUrl = 'https://localhost:5001/albums/edit/';
+const deleteReviewUrl = 'https://localhost:5001/albums/delete/';
 const getAllReviewsUrl = 'https://localhost:5001/albums/getall/';
 const getReviewUrl = 'https://localhost:5001/albums/getone/';
 const collectionUrl = 'https://localhost:5001/albums/collection/';
@@ -31,6 +32,10 @@ export function editAlbumReview(id, albumId, userId, comment, rating) {
             'comment': comment            
         })
     );
+}
+
+export function deleteReview(albumId) {
+    return request(deleteReviewUrl + albumId, 'delete');
 }
 
 export function getAllReviews(albumId) {

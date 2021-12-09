@@ -50,6 +50,7 @@ namespace back_end.Controllers
                 AlbumId = id,
                 Comment = ua.Comment,
                 Rating = ua.Rating,
+                UserId = ua.UserId,
                 Username = ua.User.UserName
             })
             .ToList();

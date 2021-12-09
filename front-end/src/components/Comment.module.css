@@ -9,13 +9,27 @@
 
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     margin: 0 50px;
+}
+
+.rating {
+    margin-left: 100px;
 }
 
 .comment {
     text-align: left;
     margin: 0 500px;
     font-size: 18px;
+}
+
+.buttons {
+    margin-top: 18px;
+    display: flex;
+    font-size: 20px;
+}
+
+.buttons li {
+    margin-right: 5px;
 }
 

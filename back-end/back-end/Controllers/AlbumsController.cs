@@ -76,6 +76,20 @@ namespace back_end.Controllers
             return Ok(result);
         }
 
+        [HttpPut]
+        [Route("edit/{id}")]
+        public IActionResult EditReview(ReviewModel model)
+        {
+            var result = data.UserAlbums.Where(ua => ua.Id == model.Id).First();
+
+            result.Rating = model.Rating;
+            result.Comment = model.Comment;
+
+            data.SaveChanges();
+
+            return Ok(result);
+        }
+
         [Route("collection/{id}")]
         public IActionResult Collection(string id)
         {

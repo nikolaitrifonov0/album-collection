@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Comments from "./Comments";
 import AuthenticationContext from "../contexts/AuthenticationContext";
-import { getReviews } from "../services/database";
+import { getAllReviews } from "../services/database";
 import { getAlbum } from "../services/spotify";
 import styles from './AlbumInfo.module.css';
 import Tracklist from './Tracklist';
@@ -15,7 +15,7 @@ export default function AlbumInfo( { match } ) {
     useEffect(() => {
       async function getData() {
         setAlbum(await getAlbum(match.params.id));
-        setReviews(await getReviews(match.params.id));
+        setReviews(await getAllReviews(match.params.id));
       }
       
       getData();      
@@ -24,7 +24,7 @@ export default function AlbumInfo( { match } ) {
     return (
       <section className={styles.albumSection}>
         <article className={styles.albumInfo}>
-          <img src={album.image}/>
+          <img src={album.image} alt='Album Cover'/>
           <article className={styles.data}>
             <h1>{album.name}</h1>
             <h1>({album.releaseDate?.substring(0, 4)})</h1>

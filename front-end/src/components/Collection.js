@@ -26,12 +26,12 @@ export default function Collection() {
             setAlbums(res);
         }
         fetchCollection();
-    }, []);
+    }, [userId]);
 
     return (
         <ul className={ styles.albums }>
             {
-                albums?.map(a => <li key={a.url} className={styles.album}><Link to={a.url}><img src={a.img}/></Link></li>)
+                albums?.map(a => <li key={a.url} className={styles.album}><Link to={a.url}><img src={a.img} alt='Album Cover'/></Link></li>)
             }
         </ul>
     );

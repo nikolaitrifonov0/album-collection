@@ -4,22 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTimesCircle, faHeart } from '@fortawesome/free-solid-svg-icons';
 import styles from './Comment.module.css'
 import AuthenticationContext from '../contexts/AuthenticationContext';
-import { deleteReview } from '../services/database';
+import { deleteReview, likeReview } from '../services/database';
 
 export default function Comment({ review }) {
     const history = useHistory();
 
-    function deleteReviewHandler(e) {
+    function likeHandler(e) {
         e.preventDefault();
-
-        deleteReview(review.id)
-        .then(() => history.push(`/details/${review.albumId}`));
+        likeReview(review.id, userId);
     }
 
     const modifyButtons = <ul className={styles.buttons}>
         <li><Link to={`/edit/${review.id}`}><FontAwesomeIcon icon={faEdit}/></Link></li>
         <li><Link to={`/delete/${review.id}`}><FontAwesomeIcon icon={faTimesCircle}/></Link></li>
-        <li><Link to={`/like/${review.id}`}><FontAwesomeIcon icon={faHeart}/></Link></li>
+        <li><a onClick={likeHandler}><FontAwesomeIcon icon={faHeart}/></a></li>
     </ul>;    
 
     const userId = useContext(AuthenticationContext);

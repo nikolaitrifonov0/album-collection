@@ -110,5 +110,33 @@ namespace back_end.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route("like")]
+        public IActionResult Like(LikeReviewModel model)
+        {
+            if (data.Likes.Any(l => l.ReviewId == model.ReviewId && l.UserId == model.UserId))
+            {
+                var toDelete = data.Likes.Where(l => l.ReviewId == model.ReviewId && l.UserId == model.UserId).First();
+
+                data.Likes.Remove(toDelete);
+
+                data.SaveChanges();
+
+                return Ok(toDelete);
+            }
+
+            var like = new Like
+            {
+                UserId = model.UserId,
+                ReviewId = model.ReviewId
+            };
+
+            data.Likes.Add(like);
+
+            data.SaveChanges();
+
+            return Ok(like);
+        }
     }
 }

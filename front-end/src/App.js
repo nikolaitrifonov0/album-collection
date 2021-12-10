@@ -11,6 +11,7 @@ import Login from './components/Login';
 import Collection from './components/Collection';
 import EditReview from './components/EditReview';
 import DeleteReview from './components/DeleteReview';
+import LikeReview from './components/LikeReview';
 
 export default function App() {
   let [userId, setUserId] = useState(null);
@@ -35,6 +36,7 @@ export default function App() {
           <Route path='/review/:id' component={ReviewAlbum}/>
           <Route path='/edit/:id' component={EditReview}/>
           <Route path='/delete/:id' component={DeleteReview}/>
+          <Route path='/like/:id' component={LikeReview}/>
 
           <Route path='/register' render={() => <Register authenticate={authenticate}/>}/>
           <Route path='/login' render={() => <Login authenticate={authenticate}/>}/>

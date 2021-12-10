@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlbumCollection.Data.Migrations
 {
     [DbContext(typeof(AlbumCollectionContext))]
-    [Migration("20211129180116_Initial")]
+    [Migration("20211210144048_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,26 +21,44 @@ namespace AlbumCollection.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AlbumCollection.Data.Models.Album", b =>
+            modelBuilder.Entity("AlbumCollection.Data.Models.Like", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ReviewId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ReviewId1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Albums");
+                    b.HasIndex("ReviewId1");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Likes");
                 });
 
-            modelBuilder.Entity("AlbumCollection.Data.Models.UserAlbum", b =>
+            modelBuilder.Entity("AlbumCollection.Data.Models.Review", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AlbumId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("AddedOnDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("AlbumId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
@@ -49,11 +67,15 @@ namespace AlbumCollection.Data.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "AlbumId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasIndex("AlbumId");
+                    b.HasKey("Id");
 
-                    b.ToTable("UserAlbums");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -256,21 +278,28 @@ namespace AlbumCollection.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("AlbumCollection.Data.Models.UserAlbum", b =>
+            modelBuilder.Entity("AlbumCollection.Data.Models.Like", b =>
                 {
-                    b.HasOne("AlbumCollection.Data.Models.Album", "Album")
-                        .WithMany("UsersAlbums")
-                        .HasForeignKey("AlbumId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("AlbumCollection.Data.Models.Review", "Review")
+                        .WithMany("Likes")
+                        .HasForeignKey("ReviewId1");
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Review");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AlbumCollection.Data.Models.Review", b =>
+                {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Album");
 
                     b.Navigation("User");
                 });
@@ -326,9 +355,9 @@ namespace AlbumCollection.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AlbumCollection.Data.Models.Album", b =>
+            modelBuilder.Entity("AlbumCollection.Data.Models.Review", b =>
                 {
-                    b.Navigation("UsersAlbums");
+                    b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618
         }

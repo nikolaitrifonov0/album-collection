@@ -25,7 +25,7 @@ namespace back_end.Controllers
         [Route("review")]
         public IActionResult Review(ReviewAlbumModel model)
         {
-            var toAdd = new UserAlbum
+            var toAdd = new Review
             {
                 UserId = model.UserId,
                 AlbumId = model.AlbumId,
@@ -34,7 +34,7 @@ namespace back_end.Controllers
                 AddedOnDate = DateTime.Now
             };
 
-            data.UserAlbums.Add(toAdd);
+            data.Reviews.Add(toAdd);
             data.SaveChanges();
 
             return Ok(toAdd);
@@ -43,7 +43,7 @@ namespace back_end.Controllers
         [Route("getall/{id}")]
         public IActionResult GetAll(string id)
         {
-            var result = data.UserAlbums.Where(ua => ua.AlbumId == id)
+            var result = data.Reviews.Where(ua => ua.AlbumId == id)
             .Select(ua => new ReviewModel
             {
                 Id = ua.Id,
@@ -61,7 +61,7 @@ namespace back_end.Controllers
         [Route("getone/{id}")]
         public IActionResult GetOne(int id)
         {
-            var result = data.UserAlbums.Where(ua => ua.Id == id)
+            var result = data.Reviews.Where(ua => ua.Id == id)
             .Select(ua => new ReviewModel
             {
                 Id = ua.Id,
@@ -80,7 +80,7 @@ namespace back_end.Controllers
         [Route("edit/{id}")]
         public IActionResult EditReview(ReviewModel model)
         {
-            var result = data.UserAlbums.Where(ua => ua.Id == model.Id).First();
+            var result = data.Reviews.Where(ua => ua.Id == model.Id).First();
 
             result.Rating = model.Rating;
             result.Comment = model.Comment;
@@ -94,8 +94,8 @@ namespace back_end.Controllers
         [Route("delete/{id}")]
         public IActionResult DeleteReview(int id)
         {
-            var result = data.UserAlbums.Where(ua => ua.Id == id).First();
-            data.UserAlbums.Remove(result);
+            var result = data.Reviews.Where(ua => ua.Id == id).First();
+            data.Reviews.Remove(result);
 
             data.SaveChanges();
 
@@ -105,7 +105,7 @@ namespace back_end.Controllers
         [Route("collection/{id}")]
         public IActionResult Collection(string id)
         {
-            var result = data.UserAlbums.Where(ua => ua.UserId == id)
+            var result = data.Reviews.Where(ua => ua.UserId == id)
                 .Select(ua => ua.AlbumId).Distinct().ToList();
 
             return Ok(result);

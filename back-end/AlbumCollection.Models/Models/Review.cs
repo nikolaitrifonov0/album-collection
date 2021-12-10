@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AlbumCollection.Data.Models
 {
-    public class UserAlbum
+    public class Review
     {
         private const int maxRating = 10;
 
@@ -19,5 +20,6 @@ namespace AlbumCollection.Data.Models
         [MaxLength(maxRating)]
         public int? Rating { get; set; }
         public DateTime AddedOnDate { get; set; }
+        public ICollection<Like> Likes { get; set; }
     }
 }

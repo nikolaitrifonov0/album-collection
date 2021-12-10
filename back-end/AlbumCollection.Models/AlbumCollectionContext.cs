@@ -10,14 +10,15 @@ namespace AlbumCollection.Data
         public AlbumCollectionContext() {}
 
         public AlbumCollectionContext(DbContextOptions<AlbumCollectionContext> options) : base(options) {}
-        public DbSet<UserAlbum> UserAlbums { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Like> Likes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
-                    .UseSqlServer(@"Server=.\SQLEXPRESS;Database=AlbumCollection;Integrated Security=True;");
+                    .UseSqlServer(@"Server=.\SQLEXPRESS;Database=AlbumsCollection;Integrated Security=True;");
             }
 
             base.OnConfiguring(optionsBuilder);
@@ -25,8 +26,8 @@ namespace AlbumCollection.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserAlbum>()
-                .HasOne<IdentityUser>(ua => ua.User);
+            modelBuilder.Entity<Review>()
+                .HasOne<IdentityUser>(r => r.User);
 
             base.OnModelCreating(modelBuilder);
         }

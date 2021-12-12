@@ -51,7 +51,8 @@ namespace back_end.Controllers
                 Comment = ua.Comment,
                 Rating = ua.Rating,
                 UserId = ua.UserId,
-                Username = ua.User.UserName
+                Username = ua.User.UserName,
+                Liked = ua.Likes.Select(l => l.UserId).ToList()
             })
             .ToList();
 

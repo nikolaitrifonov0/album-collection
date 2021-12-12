@@ -15,6 +15,7 @@
 
 .rating {
     margin-left: 100px;
+    margin-right: 10px;
 }
 
 .comment {
@@ -31,5 +32,11 @@
 
 .buttons li {
     margin-right: 5px;
+    display: flex;
+}
+
+.likes {
+    margin-top: 18px;
+    margin-left: 5px;
 }
 

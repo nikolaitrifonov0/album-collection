@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace back_end.Models
 {
@@ -11,5 +12,6 @@ namespace back_end.Models
         public string Comment { get; set; }
         [Range(1, 10)]
         public int? Rating { get; set; }
+        public IEnumerable<string> Liked { get; set; }
     }
 }

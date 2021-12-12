@@ -14,7 +14,8 @@ export default function Comment({ review }) {
 
     function likeHandler(e) {
         e.preventDefault();
-        likeReview(review.id, userId);
+        likeReview(review.id, userId)
+        .then(() => setLike(!isLiked));
     }
 
     function showLike() {

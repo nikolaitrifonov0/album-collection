@@ -1,5 +1,5 @@
 import { useHistory } from "react-router";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 import { deleteReview } from "../services/database";
 
 export default function DeleteReview({ match }) {

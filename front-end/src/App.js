@@ -6,18 +6,22 @@ import Navigation from './components/Navigation';
 import FrontPage from './components/FrontPage';
 import AlbumInfo from './components/AlbumInfo';
 import Register from './components/Register';
-import ReviewAlbum from './components/ReviewAlbum';
 import Login from './components/Login';
+import Logout from './Logout';
+import ReviewAlbum from './components/ReviewAlbum';
 import Collection from './components/Collection';
 import EditReview from './components/EditReview';
 import DeleteReview from './components/DeleteReview';
-import LikeReview from './components/LikeReview';
 
 export default function App() {
   let [userId, setUserId] = useState(null);
 
   function authenticate(id) {
     setUserId(id);
+  }
+
+  function logout() {
+    setUserId(null);
   }
 
   return (
@@ -36,10 +40,10 @@ export default function App() {
           <Route path='/review/:id' component={ReviewAlbum}/>
           <Route path='/edit/:id' component={EditReview}/>
           <Route path='/delete/:id' component={DeleteReview}/>
-          <Route path='/like/:id' component={LikeReview}/>
 
           <Route path='/register' render={() => <Register authenticate={authenticate}/>}/>
           <Route path='/login' render={() => <Login authenticate={authenticate}/>}/>
+          <Route path='/logout' render={() => <Logout logout={logout}/>}/>
         </AuthenticationContext.Provider>
      </div>
     </BrowserRouter>

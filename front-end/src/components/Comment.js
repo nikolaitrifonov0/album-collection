@@ -11,11 +11,19 @@ import { useState } from 'react/cjs/react.development';
 export default function Comment({ review }) {
     const userId = useContext(AuthenticationContext);
     let [isLiked, setLike] = useState(review.liked.some(l => l == userId));
+    let [likes, setLikes] = useState(review.liked.length);
 
     function likeHandler(e) {
         e.preventDefault();
         likeReview(review.id, userId)
-        .then(() => setLike(!isLiked));
+        .then(() => {
+            setLike(!isLiked);
+            if (isLiked) {
+                setLikes(l => l - 1);
+            } else {
+                setLikes(l => l + 1);
+            }
+        });
     }
 
     function showLike() {
@@ -49,7 +57,7 @@ export default function Comment({ review }) {
                 : null
             }
 
-            <span className={styles.likes}>{review.liked.length} likes</span>
+            <span className={styles.likes}>{likes} likes</span>
            </article>   
            <p className={styles.comment}>{review.comment}</p>        
         </li>

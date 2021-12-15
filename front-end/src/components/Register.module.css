@@ -24,3 +24,10 @@ input, label {
     font-size: 18px;
     margin-top: 5px;
 }
+
+.error {
+    background-color: red;
+    color: white;
+    margin-bottom: 15px;
+    border-radius: 50px;
+}
